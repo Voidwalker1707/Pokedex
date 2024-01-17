@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function MainContent() {
     const [cards, setCards] = useState([]);
     const [images, setImages] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,27 +46,35 @@ function MainContent() {
         }
     }, [cards]);
 
+
+    const filteredCards = cards.filter((card) => card.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
     return (
         <>
         <div className='title-container'>
             <h1 className='main-title'>Pókedex</h1>
             <div className='filter-container'>
-            <input type="text"/>
+            <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <div className='search'> <i className="ri-filter-fill"></i> </div>
             </div>
         </div>
 
         <main className='pokemon-container'>
-            {cards.map((card, index) => (
+
+        {filteredCards.map((card, index) => (
+
+
             <div key={index} className="card" style={{ width: '20rem' }}>
                 <div className="card-body">
                 <h1 className="card-title">{card.name}</h1>
-                {images[index] && <img src={images[index]} className="card-img-top" alt={card.name} />}
+                {<img src={images[cards.indexOf(card)]} className="card-img-top" alt={card.name} />}
                 <p className="card-text"></p>
-                <Link to={`/pokemon/${index + 1}`} className="btn btn-primary">Ver detalles</Link>
+                <Link to={`/pokemon/${cards.indexOf(card) + 1}`} className="btn btn-primary">Ver detalles</Link>
                 </div>
             </div>
-            ))}
+    ))}
+
         </main>
         </>
     );
