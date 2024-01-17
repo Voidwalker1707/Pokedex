@@ -28,7 +28,7 @@ function MainContent() {
             const response = await fetch(card.url);
             const imageData = await response.json();
 
-            // Cambiar a other.front_default
+
             const imageUrl = imageData.sprites.other['official-artwork'].front_default;
 
             imageUrls.push(imageUrl);
@@ -51,7 +51,7 @@ function MainContent() {
             <h1 className='main-title'>Pókedex</h1>
             <div className='filter-container'>
             <input type="text"/>
-            <div className='search'> <i className="ri-search-line"></i> </div>
+            <div className='search'> <i className="ri-filter-fill"></i> </div>
             </div>
         </div>
 
